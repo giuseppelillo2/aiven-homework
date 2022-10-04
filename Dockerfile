@@ -25,6 +25,7 @@ RUN cd /librdkafka && ./configure && make && make install && ldconfig
 COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-dev
 
+COPY certificates certificates
 COPY aiven ./aiven
 #RUN poetry build
 

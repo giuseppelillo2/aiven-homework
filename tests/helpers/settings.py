@@ -1,14 +1,15 @@
-from pydantic import BaseSettings, DirectoryPath, PostgresDsn
+from pydantic import BaseSettings, PostgresDsn
 
 from aiven.settings import LogLevel
 
 
 class TestSettings(BaseSettings):
-    log_level: LogLevel
-    certificates_folder: DirectoryPath
+    log_level: LogLevel = LogLevel.INFO
     kafka_bootstrap_servers: str
+    kafka_username: str
+    kafka_password: str
     kafka_topic: str
-    kafka_consumer_group: str
+    kafka_consumer_group: str = "test"
     postgres_url: PostgresDsn
 
     __test__ = False
@@ -20,10 +21,11 @@ class TestSettings(BaseSettings):
     def kafka_config(self) -> dict:
         return {
             "bootstrap.servers": self.kafka_bootstrap_servers,
-            "security.protocol": "SSL",
-            "ssl.ca.location": f"{self.certificates_folder}/ca.pem",
-            "ssl.key.location": f"{self.certificates_folder}/service.key",
-            "ssl.certificate.location": f"{self.certificates_folder}/service.cert",
+            "ssl.ca.location": "certificates/ca.pem",
+            "security.protocol": "SASL_SSL",
+            "sasl.mechanism": "PLAIN",
+            "sasl.username": self.kafka_username,
+            "sasl.password": self.kafka_password,
         }
 
     def kafka_consumer_config(self) -> dict:

@@ -11,6 +11,7 @@ def kafka_producer(settings):
     return Producer(settings.kafka_producer_config())
 
 
+@pytest.mark.timeout(10)
 @pytest.fixture
 def kafka_consumer(settings):
     return Consumer(settings.kafka_consumer_config())
