@@ -1,0 +1,52 @@
+name: Build and test
+
+on:
+  push:
+    branches: [ "*" ]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: network=host
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push to local registry
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: giuseppelillo/aiven:latest
+          cache-from: type=registry,ref=giuseppelillo/aiven:latest
+          cache-to: type=inline
+      -
+        name: Run migrations
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+        run: docker run -e DATABASE_URL=${POSTGRES_URL} -v $(pwd)/db:/db amacneil/dbmate up
+      -
+        name: Run tests
+        env:
+          KAFKA_BOOTSTRAP_SERVERS: ${{ secrets.KAFKA_BOOTSTRAP_SERVERS }}
+          KAFKA_USERNAME: ${{ secrets.KAFKA_USERNAME }}
+          KAFKA_PASSWORD: ${{ secrets.KAFKA_PASSWORD }}
+          KAFKA_TOPIC: "test.integration"
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+        run: |
+          docker run -e KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS} \
+                     -e KAFKA_USERNAME=${KAFKA_USERNAME} \
+                     -e KAFKA_PASSWORD=${KAFKA_PASSWORD} \
+                     -e KAFKA_TOPIC=${KAFKA_TOPIC} \
+                     -e POSTGRES_URL=${POSTGRES_URL} \
+                     giuseppelillo/aiven:latest

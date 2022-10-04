@@ -1,15 +1,12 @@
-from pydantic import (  # pylint: disable=no-name-in-module
-    BaseSettings,
-    DirectoryPath,
-    PostgresDsn,
-)
+from pydantic import BaseSettings, PostgresDsn  # pylint: disable=no-name-in-module
 
 from aiven.settings import LogLevel
 
 
 class ConsumerSettings(BaseSettings):
     log_level: LogLevel
-    certificates_folder: DirectoryPath
+    kafka_username: str
+    kafka_password: str
     kafka_bootstrap_servers: str
     kafka_topic: str
     kafka_consumer_group: str
@@ -24,10 +21,11 @@ class ConsumerSettings(BaseSettings):
     def kafka_config(self) -> dict:
         return {
             "bootstrap.servers": self.kafka_bootstrap_servers,
-            "security.protocol": "SSL",
-            "ssl.ca.location": f"{self.certificates_folder}/ca.pem",
-            "ssl.key.location": f"{self.certificates_folder}/service.key",
-            "ssl.certificate.location": f"{self.certificates_folder}/service.cert",
+            "security.protocol": "SASL_SSL",
+            "sasl.mechanism": "PLAIN",
+            "sasl.username": self.kafka_username,
+            "sasl.password": self.kafka_password,
+            "ssl.ca.location": "certificates/ca.pem",
             "group.id": self.kafka_consumer_group,
             "auto.offset.reset": self.kafka_auto_offset_reset,
             "enable.auto.commit": False,

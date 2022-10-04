@@ -9,13 +9,13 @@ dbmate --url ${POSTGRES_URL} up
 ## Docker
 
 ```
-docker build -t aiven:latest .
+docker build --target production -t aiven:latest .
 ```
 
 ```commandline
-docker run --env-file .env -v ${PWD}/certificates:/certificates aiven aiven.producer
+docker run --env-file .env aiven aiven.producer
 ```
 
 ```commandline
-docker run --env-file .env -v ${PWD}/certificates:/certificates aiven aiven.consumer
+docker run --env-file .env aiven aiven.consumer
 ```

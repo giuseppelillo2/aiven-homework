@@ -1,8 +1,4 @@
-from pydantic import (  # pylint: disable=no-name-in-module
-    BaseSettings,
-    DirectoryPath,
-    HttpUrl,
-)
+from pydantic import BaseSettings, HttpUrl  # pylint: disable=no-name-in-module
 
 from aiven.settings import LogLevel
 
@@ -15,7 +11,8 @@ class WebsiteSetting(BaseSettings):
 
 class ProducerSettings(BaseSettings):
     log_level: LogLevel = LogLevel.INFO
-    certificates_folder: DirectoryPath
+    kafka_username: str
+    kafka_password: str
     kafka_bootstrap_servers: str
     kafka_producer_acks: str = "1"
     kafka_topic: str
@@ -30,9 +27,10 @@ class ProducerSettings(BaseSettings):
     def kafka_config(self) -> dict:
         return {
             "bootstrap.servers": self.kafka_bootstrap_servers,
-            "security.protocol": "SSL",
-            "ssl.ca.location": f"{self.certificates_folder}/ca.pem",
-            "ssl.key.location": f"{self.certificates_folder}/service.key",
-            "ssl.certificate.location": f"{self.certificates_folder}/service.cert",
+            "security.protocol": "SASL_SSL",
+            "sasl.mechanism": "PLAIN",
+            "sasl.username": self.kafka_username,
+            "sasl.password": self.kafka_password,
+            "ssl.ca.location": "certificates/ca.pem",
             "acks": self.kafka_producer_acks,
         }
