@@ -23,36 +23,20 @@ RUN apt-get update && \
 RUN git clone https://github.com/edenhill/librdkafka /librdkafka
 RUN cd /librdkafka && ./configure && make && make install && ldconfig
 COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-dev
+RUN poetry install
 
 COPY certificates certificates
 COPY aiven ./aiven
-#RUN poetry build
-
-# stage: production image
-#FROM base AS production
-
-#RUN apt-get update && \
-#  apt-get install -y --no-install-recommends gcc librdkafka1 && \
-#  apt-get clean
-
-#COPY --from=builder $PYSETUP_PATH $PYSETUP_PATH
 
 ENTRYPOINT ["python", "-m"]
 CMD []
 
 # stage: testing
 FROM base AS testing
-#
-#RUN apt-get update && apt-get -y install --no-install-recommends make && rm -rf /var/lib/apt/lists/*
-#RUN pip install -U pip "poetry==$POETRY_VERSION"
-#
-#COPY --from=builder $PYSETUP_PATH $PYSETUP_PATH
-#
+
 RUN poetry install
-#
+
 COPY tests/ tests/
 COPY Makefile Makefile
-#
+
 ENTRYPOINT ["make", "test"]
-#CMD []

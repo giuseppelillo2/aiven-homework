@@ -1,7 +1,4 @@
-from pydantic import (  # pylint: disable=no-name-in-module
-    BaseSettings,
-    HttpUrl,
-)
+from pydantic import BaseSettings, HttpUrl  # pylint: disable=no-name-in-module
 
 from aiven.settings import LogLevel
 

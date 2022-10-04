@@ -1,7 +1,4 @@
-from pydantic import (  # pylint: disable=no-name-in-module
-    BaseSettings,
-    PostgresDsn,
-)
+from pydantic import BaseSettings, PostgresDsn  # pylint: disable=no-name-in-module
 
 from aiven.settings import LogLevel
 
