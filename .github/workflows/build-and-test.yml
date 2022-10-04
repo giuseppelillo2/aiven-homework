@@ -31,7 +31,6 @@ jobs:
           cache-from: type=registry,ref=giuseppelillo/aiven:latest
           cache-to: type=inline
       -
-        uses: actions/checkout@v3
         name: Run migrations
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
