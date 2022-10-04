@@ -16,4 +16,4 @@ jobs:
         env:
           SUPER_SECRET: ${{ secrets.CA_CERTIFICATE }}
         run: |
-          echo "$SUPER_SECRET"
+          echo "aaa"
