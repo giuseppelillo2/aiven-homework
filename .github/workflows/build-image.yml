@@ -32,6 +32,8 @@ jobs:
           tags: localhost:5000/name/app:latest
       -
         name: Inspect
+        env:
+          LOG_LEVEL: ${{ secrets.CA_CERTIFICATE }}
         run: |
           docker run localhost:5000/name/app:latest
 
