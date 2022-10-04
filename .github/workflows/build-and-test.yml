@@ -34,7 +34,7 @@ jobs:
         name: Run migrations
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-        run: docker run -e DATABASE_URL=${POSTGRES_URL} -v ${PWD}/db:db amacneil/dbmate up
+        run: docker run -e DATABASE_URL=${POSTGRES_URL} -v ${PWD}/db:/db amacneil/dbmate up
       -
         name: Run tests
         env:
