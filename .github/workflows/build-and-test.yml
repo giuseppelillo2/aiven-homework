@@ -32,7 +32,6 @@ jobs:
           cache-to: type=inline
       -
         name: Run migrations
-        uses: actions/checkout@v3
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
         run: docker run -e POSTGRES_URL=${POSTGRES_URL} amacneil/dbmate up
@@ -51,14 +50,3 @@ jobs:
                      -e KAFKA_TOPIC=${KAFKA_TOPIC} \
                      -e POSTGRES_URL=${POSTGRES_URL} \
                      giuseppelillo/aiven:latest
-
-#jobs:
-#
-#  build:
-#
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#    - uses: actions/checkout@v3
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag aiven:$(date +%s)
