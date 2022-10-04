@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye AS base
+FROM python:3.10-slim-bullseye AS production
 ENV PIP_DEFAULT_TIMEOUT=100 \
   PIP_DISABLE_PIP_VERSION_CHECK=1 \
   PIP_NO_CACHE_DIR=1 \
@@ -31,7 +31,6 @@ COPY aiven ./aiven
 ENTRYPOINT ["python", "-m"]
 CMD []
 
-# stage: testing
 FROM base AS testing
 
 RUN poetry install
