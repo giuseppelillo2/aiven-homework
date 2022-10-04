@@ -30,6 +30,8 @@ jobs:
           context: .
           push: true
           tags: localhost:5000/name/app:latest
+          cache-from: type=registry,ref=name/app:latest
+          cache-to: type=inline
       -
         name: Inspect
         env:
