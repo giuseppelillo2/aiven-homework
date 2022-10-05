@@ -20,13 +20,14 @@ def insert_record(db_connection: connection, metric: WebsiteMetric) -> None:
     try:
         cur = db_connection.cursor()
         cur.execute(
-            "INSERT INTO metrics (name, url, response_time, status_code, regex_check, timestamp) "
-            "VALUES (%s, %s, %s, %s, %s, %s)",
+            "INSERT INTO metrics (name, url, response_time, status_code, regex, regex_check, timestamp) "
+            "VALUES (%s, %s, %s, %s, %s, %s, %s)",
             (
                 metric.name,
                 metric.url,
                 metric.response_time,
                 metric.status_code,
+                metric.regex,
                 metric.regex_check,
                 metric.timestamp,
             ),

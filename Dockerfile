@@ -28,7 +28,7 @@ RUN poetry install
 COPY certificates certificates
 COPY aiven ./aiven
 
-ENTRYPOINT ["python", "-m"]
+ENTRYPOINT ["python", "-m", "aiven.main"]
 CMD []
 
 FROM base AS testing

@@ -29,6 +29,7 @@ class WebsiteChecker:
             url=website.url,
             response_time=resp.elapsed.total_seconds() * 1000,
             status_code=resp.status_code,
+            regex=website.regex,
             regex_check=self._check_regex(resp.text, website.regex),
             timestamp=datetime.now(timezone.utc),
         )

@@ -9,7 +9,7 @@ dbmate --url ${POSTGRES_URL} up
 ## Docker
 
 ```
-docker build --target production -t aiven:latest .
+docker build --target base -t aiven:latest .
 ```
 
 ```commandline

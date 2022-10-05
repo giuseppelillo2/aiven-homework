@@ -32,6 +32,6 @@ class MetricsProducer:
         self.logger.debug("Checking status of: %s", website)
         metric = self.website_checker.check(website)
         message = metric.json()
-        kafka_producer.produce(topic=self.kafka_topic, key=metric.url, value=message)
+        kafka_producer.produce(topic=self.kafka_topic, key=metric.name, value=message)
         kafka_producer.flush()
         self.logger.info("Produced metric: %s", metric)

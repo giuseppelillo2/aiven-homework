@@ -31,6 +31,7 @@ def row_to_metric(row: tuple) -> WebsiteMetric:
         url=row[1],
         response_time=row[2],
         status_code=row[3],
-        regex_check=row[4],
-        timestamp=row[5],
+        regex=row[4],
+        regex_check=row[5],
+        timestamp=row[6],
     )

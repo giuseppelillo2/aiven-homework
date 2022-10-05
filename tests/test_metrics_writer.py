@@ -26,6 +26,7 @@ def test_db_error(
                 "url": "https://aiven.io",
                 "response_time": 20,
                 "status_code": 200,
+                "regex": "ai",
                 "regex_check": True,
                 "timestamp": "2022-10-04T06:48:49Z",
             }

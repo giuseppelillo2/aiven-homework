@@ -22,6 +22,7 @@ class MockWebsiteMetric(Website):
             url=self.url,
             response_time=self.response_time,
             status_code=self.status_code,
+            regex=self.regex,
             regex_check=self.regex_check,
             timestamp=self.timestamp,
         )
@@ -34,6 +35,7 @@ class WebsiteCheckerMock:
             url=website.url,
             response_time=website.response_time,
             status_code=website.status_code,
+            regex=website.regex,
             regex_check=website.regex_check,
             timestamp=website.timestamp,
         )
