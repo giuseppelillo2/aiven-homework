@@ -2,9 +2,9 @@ POETRY_RUN := poetry run
 BLUE=\033[0;34m
 NC=\033[0m # No Color
 
-.PHONY: all update lint  unit-test test clean help
+.PHONY: all update lint test clean help
 
-all: update lint unit-test
+all: update lint test
 
 update: ## Just update the environment
 	@echo "\n${BLUE}Running poetry update...${NC}\n"
@@ -15,7 +15,7 @@ update: ## Just update the environment
 	@${POETRY_RUN} pip list -o --not-required --outdated
 
 
-lint:
+lint: ## Run linting tools.
 	@echo "\n${BLUE}Running linting...${NC}\n"
 	@${POETRY_RUN} black --target-version py310 .
 	@${POETRY_RUN} isort .
@@ -26,23 +26,11 @@ lint:
 	@${POETRY_RUN} pylint aiven
 
 test: ## Run unit tests.
-	@echo "\n${BLUE}Running unit tests...${NC}\n"
+	@echo "\n${BLUE}Running tests...${NC}\n"
 	@${POETRY_RUN} pytest
 
-#test: ## Run all the tests with code coverage. You can also `make test tests/test_my_specific.py`
-#	@echo "\n${BLUE}Running pytest with coverage...${NC}\n"
-#	@${POETRY_RUN} coverage erase;
-#	@${POETRY_RUN} coverage run -m pytest \
-#		--junitxml=junit/test-results.xml \
-#		--verbose \
-#		-s \
-#		-vv
-#	@${POETRY_RUN} coverage report
-#	@${POETRY_RUN} coverage html
-#	@${POETRY_RUN} coverage xml
 
-
-clean: ## Force a clean environment: remove all temporary files and caches. Start from a new environment
+clean: ## Force a clean environment: remove all temporary files and caches. Start from a new environment.
 	@echo "\n${BLUE}Cleaning up...${NC}\n"
 	rm -rf .mypy_cache .pytest_cache htmlcov junit coverage.xml .coverage
 	find . -type f -name "*.py[co]" -delete
@@ -53,7 +41,7 @@ clean: ## Force a clean environment: remove all temporary files and caches. Star
 	poetry env remove $(shell poetry run which python)
 	poetry env list
 
-help: ## Show this help
+help: ## Show this help.
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) \
 		| sort \
 		| awk 'BEGIN {FS = ":.*?## "}; \
