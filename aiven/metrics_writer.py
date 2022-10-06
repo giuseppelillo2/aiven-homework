@@ -10,9 +10,6 @@ from aiven.models import WebsiteMetric
 
 
 class MetricsWriter:
-    db_connection: connection
-    logger: Logger
-
     def __init__(self, db_connection: connection, logger: Logger):
         self.db_connection = db_connection
         self.logger = logger

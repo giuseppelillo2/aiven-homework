@@ -7,10 +7,6 @@ from aiven.website_checker import WebsiteChecker
 
 
 class MetricsProducer:
-    website_checker: WebsiteChecker
-    logger: Logger
-    kafka_topic: str
-
     def __init__(
         self,
         website_checker: WebsiteChecker,

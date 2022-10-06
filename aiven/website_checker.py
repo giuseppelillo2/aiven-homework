@@ -9,8 +9,6 @@ from aiven.models import Website, WebsiteMetric
 
 
 class WebsiteChecker:
-    timeout: int
-
     def __init__(self, timeout: int):
         self.timeout = timeout
 

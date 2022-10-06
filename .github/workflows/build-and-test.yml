@@ -48,5 +48,5 @@ jobs:
                      -e KAFKA_USERNAME=${KAFKA_USERNAME} \
                      -e KAFKA_PASSWORD=${KAFKA_PASSWORD} \
                      -e KAFKA_TOPIC=${KAFKA_TOPIC} \
-                     -e POSTGRES_URL=${POSTGRES_URL} \
+                     -e DATABASE_URL=${POSTGRES_URL} \
                      giuseppelillo/aiven:latest
