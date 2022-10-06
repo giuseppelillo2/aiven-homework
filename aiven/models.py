@@ -22,6 +22,7 @@ class WebsiteMetric(Website):
     - name: name of the website
     - url: url of the website
     - response_time: how many milliseconds it took to respond
+    - status_code: HTTP status code of the response
     - regex: regex used for checking the response content
     - regex_check: True if the regex matched the content of the response, False otherwise
     - timestamp: timestamp of when the check was performed

@@ -11,7 +11,7 @@ def run_consumer() -> None:
     settings = ConsumerSettings()
     logging.basicConfig(level=settings.log_level.value)
 
-    db_connection = db_connect(settings.postgres_url)
+    db_connection = db_connect(settings.database_url)
     consumer = Consumer(settings.kafka_config())
     metrics_writer = MetricsWriter(
         db_connection=db_connection, logger=logging.getLogger()

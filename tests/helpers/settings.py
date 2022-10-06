@@ -10,7 +10,7 @@ class TestSettings(BaseSettings):
     kafka_password: str
     kafka_topic: str
     kafka_consumer_group: str = "test"
-    postgres_url: PostgresDsn
+    database_url: PostgresDsn
 
     __test__ = False
 

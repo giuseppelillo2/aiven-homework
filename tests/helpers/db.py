@@ -11,7 +11,7 @@ class MockDbConnection:
 
 @pytest.fixture
 def db_connection(settings):
-    return psycopg2.connect(dsn=settings.postgres_url)
+    return psycopg2.connect(dsn=settings.database_url)
 
 
 @pytest.fixture

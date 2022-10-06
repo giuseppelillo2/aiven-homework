@@ -12,7 +12,7 @@ class ConsumerSettings(BaseSettings):
     kafka_consumer_group: str
     kafka_auto_offset_reset: str = "earliest"
     kafka_poll_timeout: float = 1.0
-    postgres_url: PostgresDsn
+    database_url: PostgresDsn
 
     class Config:
         env_file = ".env"

@@ -59,8 +59,8 @@ def mock_metrics(kafka_admin, db_connection, settings):
     clean_table(db_connection)
 
 
-@pytest.mark.timeout(30)
-def test_end_to_end(
+@pytest.mark.timeout(60)
+def test_integration(
     mock_metrics,
     metrics_producer,
     kafka_producer,
