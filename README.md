@@ -181,3 +181,4 @@ and runs all the tests.
 - Integration tests with Docker Compose
 - Monitoring of the consumer: if a message has a wrong schema it stalls the application
 - Structured logging
+- Docker image tags in GitHub Action
