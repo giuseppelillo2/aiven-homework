@@ -26,7 +26,8 @@ graph LR
 ### Producer
 
 The `producer` application performs a check on each configured `website`, every `check_interval` seconds.
-Those checks are performed in parallel, as each check runs on its own thread.
+Those checks are performed in parallel (as far as Python can go in regard to parallelism due to the GIL),
+as each check runs on its own thread.
 The response content of each website is checked against a `regex` configured for each website.
 
 The checks created are then published into the Kafka topic `kafka_topic`, in json format.
@@ -171,5 +172,12 @@ and runs all the tests.
 
 ## Areas of improvement
 
-- Json schema of the Kafka topic inside the Kafka Schema registry
+- Json schema of the Kafka topic inside the Kafka Schema Registry
+- Error handling in the producer: in this version when a request fails an error is logged
+- Scheduling of the producer
+- Regex validation
+- Separate Docker images for consumer and producer applications
+- Optimize Docker build: right now it needs to build `librdkafka` from sources due to a bug with M1 Macs
 - Integration tests with Docker Compose
+- Monitoring of the consumer: if a message has a wrong schema it stalls the application
+- Structured logging

@@ -1,5 +1,4 @@
 import psycopg2
-import pytest
 
 from aiven.models import WebsiteMetric
 
@@ -7,16 +6,6 @@ from aiven.models import WebsiteMetric
 class MockDbConnection:
     def cursor(self):
         raise psycopg2.DatabaseError()
-
-
-@pytest.fixture
-def db_connection(settings):
-    return psycopg2.connect(dsn=settings.database_url)
-
-
-@pytest.fixture
-def mock_db_connection():
-    return MockDbConnection()
 
 
 def clean_table(db_connection):

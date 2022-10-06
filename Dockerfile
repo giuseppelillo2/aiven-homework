@@ -19,6 +19,7 @@ RUN apt-get update && \
   apt-get install -y git software-properties-common build-essential gcc libssl-dev python3-dev make && \
   apt-get clean
 
+# This has to be done in order to correctly build for M1 Macs
 # https://github.com/confluentinc/confluent-kafka-python/issues/1405#issuecomment-1209431553
 RUN git clone https://github.com/edenhill/librdkafka /librdkafka
 RUN cd /librdkafka && ./configure && make && make install && ldconfig

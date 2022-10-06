@@ -1,12 +1,13 @@
 import logging
 from datetime import datetime
 
+import pytest
+
 from aiven.metrics_producer import MetricsProducer
 from aiven.metrics_writer import MetricsWriter
-from tests.helpers.db import *
-from tests.helpers.kafka import *
+from tests.helpers.db import clean_table, row_to_metric
 from tests.helpers.settings import TestSettings
-from tests.helpers.website_checker_mock import *
+from tests.helpers.website_checker_mock import MockWebsiteMetric
 
 
 @pytest.fixture

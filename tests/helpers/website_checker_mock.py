@@ -1,13 +1,6 @@
 from datetime import datetime
 
-import pytest
-
 from aiven.models import Website, WebsiteMetric
-
-
-@pytest.fixture
-def website_checker_mock():
-    return WebsiteCheckerMock()
 
 
 class MockWebsiteMetric(Website):

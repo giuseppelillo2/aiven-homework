@@ -37,13 +37,9 @@ def run_producer() -> None:
 
     logging.info("Starting the Kafka Producer:\n\ttopic: %s", settings.kafka_topic)
 
-    start_time = time.time()
     while True:
         for website in websites:
             threading.Thread(
                 target=process_website, args=(metrics_producer, kafka_producer, website)
             ).start()
-        time.sleep(
-            settings.check_interval
-            - ((time.time() - start_time) % settings.check_interval)
-        )
+        time.sleep(settings.check_interval)

@@ -2,10 +2,7 @@ from aiven.models import Website
 
 
 class CustomException(Exception):
-    message: str
-
-    def __str__(self):
-        return self.message
+    pass
 
 
 class WebsiteCheckerException(CustomException):

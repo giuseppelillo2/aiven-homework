@@ -1,19 +1,8 @@
-import logging
-
 import pydantic
+import pytest
 
 from aiven.exceptions import DatabaseException
-from aiven.metrics_writer import MetricsWriter
-from tests.helpers.db import *
-from tests.helpers.kafka import *
-
-
-@pytest.fixture
-def metrics_writer_mock_db(mock_db_connection):
-    return MetricsWriter(
-        db_connection=mock_db_connection,
-        logger=logging.getLogger(),
-    )
+from tests.helpers.models import *
 
 
 def test_db_error(
